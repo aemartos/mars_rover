@@ -10,7 +10,7 @@ var roverling = {
 
 // ======================
 function turnLeft(rover){
-  console.log("turnLeft was called!");
+  //console.log("turnLeft was called!");
   switch (roverling.direction) {
     case "N":
       roverling.direction = "W"
@@ -29,7 +29,7 @@ function turnLeft(rover){
 }
 
 function turnRight(rover){
-  console.log("turnRight was called!");
+  //console.log("turnRight was called!");
   switch (roverling.direction) {
     case "N":
       roverling.direction = "E";
@@ -47,7 +47,7 @@ function turnRight(rover){
 }
 
 function moveForward(rover){
-  console.log("moveForward was called")
+  //console.log("moveForward was called")
   switch (roverling.direction) {
     case "N":
       roverling.y--;
@@ -66,7 +66,7 @@ function moveForward(rover){
 }
 
 function moveBackward(rover){
-  console.log("moveForward was called")
+  //console.log("moveForward was called")
   switch (roverling.direction) {
     case "N":
       roverling.y++;
@@ -84,16 +84,25 @@ function moveBackward(rover){
   //console.log(roverling.x, roverling.y);
 }
 
-function getCommands(rover, commands){
-  for(var i = 0; i < commands.length; i++){
-    var currentCommands = commands[i];
+function cooLog(rover) {
+  var coo = "("+rover.x+","+rover.y+")";
+  roverling.travelLog.push(coo);
+}
 
-    switch (currentCommands) {
+function getCommands(rover, commands){
+  var prevCoo = cooLog(rover);
+
+  for(var i = 0; i < commands.length; i++){
+    var currentCommand = commands[i];
+
+    switch (currentCommand) {
       case "f":
         moveBackward(rover);
+        prevCoo = cooLog(rover);
         break;
       case "b":
-        moveForward(rover);;
+        moveForward(rover);
+        prevCoo = cooLog(rover);
         break;
       case "r":
         turnRight(rover);
@@ -104,7 +113,7 @@ function getCommands(rover, commands){
       default:
         console.log("Please enter a valid order, 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
         break;
-      }
+    }
   }
 }
 
@@ -112,3 +121,4 @@ function getCommands(rover, commands){
 getCommands(roverling, "rfbrfflbfrffb");
 console.log(roverling.direction);
 console.log(roverling.x, roverling.y);
+console.log(roverling.travelLog);
