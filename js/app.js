@@ -4,7 +4,8 @@
 var roverling = {
   x: 0,
   y: 0,
-  direction: "N"
+  direction: "N",
+  travelLog: []
 }
 
 // ======================
@@ -24,7 +25,7 @@ function turnLeft(rover){
       roverling.direction = "S"
       break;
   }
-  console.log(roverling.direction);
+  //console.log(roverling.direction);
 }
 
 function turnRight(rover){
@@ -42,7 +43,7 @@ function turnRight(rover){
       roverling.direction = "N";
       break;
   }
-  console.log(roverling.direction);
+  //console.log(roverling.direction);
 }
 
 function moveForward(rover){
@@ -61,7 +62,7 @@ function moveForward(rover){
       roverling.x--;
       break;
   }
-  console.log(roverling.x, roverling.y);
+ //console.log(roverling.x, roverling.y);
 }
 
 function moveBackward(rover){
@@ -80,5 +81,34 @@ function moveBackward(rover){
       roverling.x++;
       break;
   }
-  console.log(roverling.x, roverling.y);
+  //console.log(roverling.x, roverling.y);
 }
+
+function getCommands(rover, commands){
+  for(var i = 0; i < commands.length; i++){
+    var currentCommands = commands[i];
+
+    switch (currentCommands) {
+      case "f":
+        moveBackward(rover);
+        break;
+      case "b":
+        moveForward(rover);;
+        break;
+      case "r":
+        turnRight(rover);
+        break;
+      case "l":
+        turnLeft(rover);
+        break;
+      default:
+        console.log("Please enter a valid order, 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
+        break;
+      }
+  }
+}
+
+//getCommands(roverling, "rffrfflfrff");
+getCommands(roverling, "rfbrfflbfrffb");
+console.log(roverling.direction);
+console.log(roverling.x, roverling.y);
