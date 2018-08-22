@@ -2,6 +2,8 @@
 // ======================
 
 var roverling = {
+  x: 0,
+  y: 0,
   direction: "N"
 }
 
@@ -29,16 +31,15 @@ function turnRight(rover){
   console.log("turnRight was called!");
   switch (roverling.direction) {
     case "N":
-      roverling.direction = "E"
+      roverling.direction = "E";
       break;
     case "E":
-      roverling.direction = "S"
-      break;
+      roverling.direction = "S";
     case "S":
-      roverling.direction = "W"
+      roverling.direction = "W";
       break;
     case "W":
-      roverling.direction = "N"
+      roverling.direction = "N";
       break;
   }
   console.log(roverling.direction);
@@ -46,4 +47,38 @@ function turnRight(rover){
 
 function moveForward(rover){
   console.log("moveForward was called")
+  switch (roverling.direction) {
+    case "N":
+      roverling.y--;
+      break;
+    case "E":
+      roverling.x++;
+      break;
+    case "S":
+      roverling.y++;
+      break;
+    case "W":
+      roverling.x--;
+      break;
+  }
+  console.log(roverling.x, roverling.y);
+}
+
+function moveBackward(rover){
+  console.log("moveForward was called")
+  switch (roverling.direction) {
+    case "N":
+      roverling.y++;
+      break;
+    case "E":
+      roverling.x--;
+      break;
+    case "S":
+      roverling.y--;
+      break;
+    case "W":
+      roverling.x++;
+      break;
+  }
+  console.log(roverling.x, roverling.y);
 }
