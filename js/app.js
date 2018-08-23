@@ -2,6 +2,7 @@
 // ======================
 
 var roverling = {
+  name: "roverling",
   x: 0,
   y: 0,
   direction: "N",
@@ -10,38 +11,51 @@ var roverling = {
 
 // ======================
 
+var grid = [
+  [roverling, null, "unagi", null, null, null, "smelly cat", null, null, null],
+  [null, null, null, null, null, null, null, null, "crap bag", null],
+  [null, null, null, "central perk", null, null, null, null, null, null],
+  [null, "joey", null, null, null, null, null, null, null, null],
+  [null, null, null, null, null, null, "umbrella", null, null, null],
+  [null, null, "coffee", null, null, null, null, null, "meatloaf sandwich", null],
+  [null, null, null, null, null, "dinosaur", null, null, null, null],
+  ["OMG!", null, null, null, "ursula", null, null, null, null, null],
+  [null, null, null, null, "gladys", null, "gunther", null, null, null],
+  [null, null, null, null, null, null, null, "dollhouse", null, null]
+];
+//console.log(grid[0][2]);
 
 
 //TURN functions=======================
 
 function calcTurn(turn, rover){
-  switch (roverling.direction) {
+  switch (rover.direction) {
     case "N":
       if (turn === "left") {
-        roverling.direction = "W";
+        rover.direction = "W";
       } else if (turn === "right") {
-        roverling.direction = "E";
+        rover.direction = "E";
       }
       break;
     case "E":
       if (turn === "left") {
-        roverling.direction = "N";
+        rover.direction = "N";
       } else if (turn === "right") {
-        roverling.direction = "S";
+        rover.direction = "S";
       }
       break;
     case "S":
       if (turn === "left") {
-        roverling.direction = "E";
+        rover.direction = "E";
       } else if (turn === "right") {
-        roverling.direction = "W";
+        rover.direction = "W";
       }
       break;
     case "W":
       if (turn === "left") {
-        roverling.direction = "S";
+        rover.direction = "S";
       } else if (turn === "right") {
-        roverling.direction = "N";
+        rover.direction = "N";
       }
       break;
   }
@@ -63,33 +77,33 @@ function turnRight(rover){
 
 function calcMove(move, rover){
 
-  switch (roverling.direction) {
+  switch (rover.direction) {
     case "N":
-      if (move === "forward" && roverling.y > 0) {
-        roverling.y--;
-      } else if (move === "backward" && roverling.y < 9) {
-        roverling.y++;
+      if (move === "forward" && rover.y > 0) {
+        rover.y--;
+      } else if (move === "backward" && rover.y < 9) {
+        rover.y++;
       }
       break;
     case "E":
-      if (move === "forward" && roverling.x < 9) {
-        roverling.x++;
-      } else if (move === "backward" && roverling.x > 0) {
-        roverling.x--;
+      if (move === "forward" && rover.x < 9) {
+        rover.x++;
+      } else if (move === "backward" && rover.x > 0) {
+        rover.x--;
       }
       break;
     case "S":
-      if (move === "forward" && roverling.y < 9) {
+      if (move === "forward" && rover.y < 9) {
         roverling.y++;
-      } else if (move === "backward" && roverling.y > 0) {
+      } else if (move === "backward" && rover.y > 0) {
         roverling.y--;
       }
       break;
     case "W":
-      if (move === "forward" && roverling.x > 0) {
-        roverling.x--;
-      } else if (move === "backward" && roverling.x < 9) {
-        roverling.x++;
+      if (move === "forward" && rover.x > 0) {
+        rover.x--;
+      } else if (move === "backward" && rover.x < 9) {
+        rover.x++;
       }
       break;
   }
@@ -111,7 +125,7 @@ function moveBackward(rover){
 
 function cooLog(rover) {
   var coo = "("+rover.x+","+rover.y+")";
-  roverling.travelLog.push(coo);
+  rover.travelLog.push(coo);
 }
 
 function getCommands(rover, commands){
@@ -121,11 +135,11 @@ function getCommands(rover, commands){
     var currentCommand = commands[i];
     switch (currentCommand) {
       case "f":
-        moveBackward(rover);
+        moveForward(rover);
         prevCoo = cooLog(rover);
         break;
       case "b":
-        moveForward(rover);
+        moveBackward(rover);
         prevCoo = cooLog(rover);
         break;
       case "r":
@@ -144,10 +158,10 @@ function getCommands(rover, commands){
 
 //TESTING =================================
 
-//getCommands(roverling, "rffrfflfrff");
+getCommands(roverling, "rffrfflfrff");
 //getCommands(roverling, "rfbrfflbfrffb");
-getCommands(roverling, "rbrblbfrffb");
-//getCommands(roverling, "rffrfflfrff");
+//getCommands(roverling, "rbrblbfrffb");
+//getCommands(roverling, "rrfflfffrffflfff");
 console.log(roverling.travelLog);
 console.log(roverling.direction);
 console.log(roverling.x, roverling.y);
