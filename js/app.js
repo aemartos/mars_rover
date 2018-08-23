@@ -9,80 +9,106 @@ var roverling = {
 }
 
 // ======================
-function turnLeft(rover){
+
+
+
+//TURN functions=======================
+
+function calcTurn(turn, rover){
   //console.log("turnLeft was called!");
   switch (roverling.direction) {
     case "N":
-      roverling.direction = "W"
+      if (turn === "left") {
+        roverling.direction = "W";
+      } else if (turn === "right") {
+        roverling.direction = "E";
+      }
       break;
     case "E":
-      roverling.direction = "N"
+      if (turn === "left") {
+        roverling.direction = "N";
+      } else if (turn === "right") {
+        roverling.direction = "S";
+      }
       break;
     case "S":
-      roverling.direction = "E"
+      if (turn === "left") {
+        roverling.direction = "E";
+      } else if (turn === "right") {
+        roverling.direction = "W";
+      }
       break;
     case "W":
-      roverling.direction = "S"
+      if (turn === "left") {
+        roverling.direction = "S";
+      } else if (turn === "right") {
+        roverling.direction = "N";
+      }
       break;
   }
   //console.log(roverling.direction);
+}
+
+function turnLeft(rover){
+  //console.log("turnLeft was called!");
+  calcTurn("left", roverling);
 }
 
 function turnRight(rover){
   //console.log("turnRight was called!");
-  switch (roverling.direction) {
-    case "N":
-      roverling.direction = "E";
-      break;
-    case "E":
-      roverling.direction = "S";
-    case "S":
-      roverling.direction = "W";
-      break;
-    case "W":
-      roverling.direction = "N";
-      break;
-  }
-  //console.log(roverling.direction);
+  calcTurn("right", roverling);
 }
 
-function moveForward(rover){
-  //console.log("moveForward was called")
-  switch (roverling.direction) {
-    case "N":
-      roverling.y--;
-      break;
-    case "E":
-      roverling.x++;
-      break;
-    case "S":
-      roverling.y++;
-      break;
-    case "W":
-      roverling.x--;
-      break;
-  }
- //console.log(roverling.x, roverling.y);
-}
 
-function moveBackward(rover){
-  //console.log("moveForward was called")
+//MOVE functions=======================
+
+function calcMove(move, rover){
+  //console.log("turnLeft was called!");
   switch (roverling.direction) {
     case "N":
-      roverling.y++;
+      if (move === "forward") {
+        roverling.y--;
+      } else if (move === "backward") {
+        roverling.y++;
+      }
       break;
     case "E":
-      roverling.x--;
+      if (move === "forward") {
+        roverling.x++;
+      } else if (move === "backward") {
+        roverling.x--;
+      }
       break;
     case "S":
-      roverling.y--;
+      if (move === "forward") {
+        roverling.y++;
+      } else if (move === "backward") {
+        roverling.y--;
+      }
       break;
     case "W":
-      roverling.x++;
+      if (move === "forward") {
+        roverling.x--;
+      } else if (move === "backward") {
+        roverling.x++;
+      }
       break;
   }
   //console.log(roverling.x, roverling.y);
 }
+
+function moveForward(rover){
+  //console.log("moveForward was called");
+  calcMove("forward", roverling);
+}
+
+function moveBackward(rover){
+  //console.log("moveBackward was called");
+  calcMove("backward", roverling);
+}
+
+
+//LOG and COMMAND functions=======================
 
 function cooLog(rover) {
   var coo = "("+rover.x+","+rover.y+")";
@@ -116,6 +142,9 @@ function getCommands(rover, commands){
     }
   }
 }
+
+
+//TESTING =================================
 
 //getCommands(roverling, "rffrfflfrff");
 getCommands(roverling, "rfbrfflbfrffb");
