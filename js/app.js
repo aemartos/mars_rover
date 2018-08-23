@@ -177,7 +177,7 @@ function getCommands(rover, commands){
         turnLeft(rover);
         break;
       default:
-        console.log("Please enter a valid order, 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
+        console.log("Can't read: '" + commands[i] + "' command, try with: 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
         break;
     }
   }
@@ -187,9 +187,9 @@ function getCommands(rover, commands){
 //TESTING =================================
 
 //getCommands(roverling, "rffrfflfrff");
-getCommands(roverling, "rfbrfflbfrffb");
+getCommands(roverling, "rfbrfflbfrtffb");
 //getCommands(roverling, "rbrblbfrffb");
 //getCommands(roverling, "rrfflfffrffflfff");
 console.log(roverling.travelLog);
-console.log(roverling.direction);
-console.log(roverling.x, roverling.y);
+console.log("Last roverling direction:" + " " + roverling.direction);
+console.log("Last roverling position:" + " " + "(" + roverling.x + "," + roverling.y + ")");
