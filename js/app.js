@@ -64,35 +64,39 @@ function turnRight(rover){
 
 function calcMove(move, rover){
   //console.log("turnLeft was called!");
-  switch (roverling.direction) {
-    case "N":
-      if (move === "forward") {
-        roverling.y--;
-      } else if (move === "backward") {
-        roverling.y++;
-      }
-      break;
-    case "E":
-      if (move === "forward") {
-        roverling.x++;
-      } else if (move === "backward") {
-        roverling.x--;
-      }
-      break;
-    case "S":
-      if (move === "forward") {
-        roverling.y++;
-      } else if (move === "backward") {
-        roverling.y--;
-      }
-      break;
-    case "W":
-      if (move === "forward") {
-        roverling.x--;
-      } else if (move === "backward") {
-        roverling.x++;
-      }
-      break;
+  if (roverling.x <= 0 || roverling.x >= 9 || roverling.y <= 0 || roverling.y >= 9) {
+    console.log("You can go off limits, sorry, try again!");
+  } else {
+    switch (roverling.direction) {
+      case "N":
+        if (move === "forward") {
+          roverling.y--;
+        } else if (move === "backward") {
+          roverling.y++;
+        }
+        break;
+      case "E":
+        if (move === "forward") {
+          roverling.x++;
+        } else if (move === "backward") {
+          roverling.x--;
+        }
+        break;
+      case "S":
+        if (move === "forward") {
+          roverling.y++;
+        } else if (move === "backward") {
+          roverling.y--;
+        }
+        break;
+      case "W":
+        if (move === "forward") {
+          roverling.x--;
+        } else if (move === "backward") {
+          roverling.x++;
+        }
+        break;
+    }
   }
   //console.log(roverling.x, roverling.y);
 }
@@ -120,25 +124,30 @@ function getCommands(rover, commands){
 
   for(var i = 0; i < commands.length; i++){
     var currentCommand = commands[i];
-
-    switch (currentCommand) {
-      case "f":
-        moveBackward(rover);
-        prevCoo = cooLog(rover);
-        break;
-      case "b":
-        moveForward(rover);
-        prevCoo = cooLog(rover);
-        break;
-      case "r":
-        turnRight(rover);
-        break;
-      case "l":
-        turnLeft(rover);
-        break;
-      default:
-        console.log("Please enter a valid order, 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
-        break;
+    if (roverling.x <= 0 || roverling.x >= 9 || roverling.y <= 0 || roverling.y >= 9) {
+      console.log("I can go off limits, sorry, i'm taking next order");
+      commands[i] = null;
+      continue;
+    } else {
+      switch (currentCommand) {
+        case "f":
+          moveBackward(rover);
+          prevCoo = cooLog(rover);
+          break;
+        case "b":
+          moveForward(rover);
+          prevCoo = cooLog(rover);
+          break;
+        case "r":
+          turnRight(rover);
+          break;
+        case "l":
+          turnLeft(rover);
+          break;
+        default:
+          console.log("Please enter a valid order, 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
+          break;
+      }
     }
   }
 }
