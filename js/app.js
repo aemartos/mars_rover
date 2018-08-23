@@ -6,13 +6,21 @@ var roverling = {
   x: 0,
   y: 0,
   direction: "N",
+  travelLog: ["(0,0)"]
+}
+
+var roverlet = {
+  name: "roverlet",
+  x: 9,
+  y: 0,
+  direction: "S",
   travelLog: []
 }
 
 // ======================
 
 var grid = [
-  [roverling, null, "unagi", null, null, null, "smelly cat", null, null, null],
+  [roverling, null, "unagi", null, null, null, "smelly cat", null, null, roverlet],
   [null, null, null, null, null, null, null, null, "crap bag", null],
   [null, null, null, "central perk", null, null, null, null, null, null],
   [null, "joey", null, null, null, null, null, null, null, null],
@@ -73,37 +81,64 @@ function turnRight(rover){
 }
 
 
+//LOG function=======================
+
+function cooLog(rover) {
+  var coordinate = "("+rover.x+","+rover.y+")";
+  rover.travelLog.push(coordinate);
+}
+
+
+//CHECK MOV function========================
+
+function checkMov (nextX, nextY, rover) {
+  if(nextX === -1 || nextY === -1 || nextX === 10 || nextY === 10){
+    console.log("Sorry, " + rover.name + " can't go to position: " + nextX + "," + nextY);
+  } else {
+    if(grid[nextX][nextY] === null) {
+      grid[rover.x][rover.y] = null;
+      grid[nextX][nextY] = rover;
+      rover.x = nextX;
+      rover.y = nextY;
+      console.log(nextX, nextY);
+      coo = cooLog(rover);
+    } else if (typeof grid[nextX][nextY] === "string") {
+      console.log("Wild " + grid[nextX][nextY] + " appeared!");
+    }
+  }
+}
+
+
 //MOVE functions=======================
 
 function calcMove(move, rover){
-
   switch (rover.direction) {
     case "N":
-      if (move === "forward" && rover.y > 0) {
-        rover.y--;
-      } else if (move === "backward" && rover.y < 9) {
-        rover.y++;
+      if (move === "forward") {
+        checkMov(rover.x, rover.y - 1, rover);
+      } else if (move === "backward") {
+        checkMov(rover.x, rover.y + 1, rover);
       }
       break;
     case "E":
-      if (move === "forward" && rover.x < 9) {
-        rover.x++;
-      } else if (move === "backward" && rover.x > 0) {
-        rover.x--;
+      if (move === "forward") {
+        checkMov(rover.x + 1, rover.y, rover);
+      } else if (move === "backward") {
+        checkMov(rover.x - 1, rover.y, rover);
       }
       break;
     case "S":
-      if (move === "forward" && rover.y < 9) {
-        roverling.y++;
-      } else if (move === "backward" && rover.y > 0) {
-        roverling.y--;
+      if (move === "forward") {
+        checkMov(rover.x, rover.y + 1, rover);
+      } else if (move === "backward") {
+        checkMov(rover.x, rover.y - 1, rover);
       }
       break;
     case "W":
       if (move === "forward" && rover.x > 0) {
-        rover.x--;
+        checkMov(rover.x - 1, rover.y, rover);
       } else if (move === "backward" && rover.x < 9) {
-        rover.x++;
+        checkMov(rover.x + 1, rover.y, rover);
       }
       break;
   }
@@ -121,26 +156,19 @@ function moveBackward(rover){
 }
 
 
-//LOG and COMMAND functions=======================
 
-function cooLog(rover) {
-  var coo = "("+rover.x+","+rover.y+")";
-  rover.travelLog.push(coo);
-}
+//COMMAND function=======================
 
 function getCommands(rover, commands){
-  var prevCoo = cooLog(rover);
-  console.log("Orders taken the rover outside the map will not be executed nor written in the travel log :D");
+  //console.log("Orders taken the rover outside the map will not be executed nor written in the travel log :D");
   for(var i = 0; i < commands.length; i++){
     var currentCommand = commands[i];
     switch (currentCommand) {
       case "f":
         moveForward(rover);
-        prevCoo = cooLog(rover);
         break;
       case "b":
         moveBackward(rover);
-        prevCoo = cooLog(rover);
         break;
       case "r":
         turnRight(rover);
@@ -158,8 +186,8 @@ function getCommands(rover, commands){
 
 //TESTING =================================
 
-getCommands(roverling, "rffrfflfrff");
-//getCommands(roverling, "rfbrfflbfrffb");
+//getCommands(roverling, "rffrfflfrff");
+getCommands(roverling, "rfbrfflbfrffb");
 //getCommands(roverling, "rbrblbfrffb");
 //getCommands(roverling, "rrfflfffrffflfff");
 console.log(roverling.travelLog);
