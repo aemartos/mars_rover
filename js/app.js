@@ -76,12 +76,12 @@ function calcTurn(turn, rover){
 
 function turnLeft(rover){
   //console.log("turnLeft was called!");
-  calcTurn("left", roverling);
+  calcTurn("left", rover);
 }
 
 function turnRight(rover){
   //console.log("turnRight was called!");
-  calcTurn("right", roverling);
+  calcTurn("right", rover);
 }
 
 
@@ -109,7 +109,7 @@ function checkMov (nextX, nextY, rover) {
     } else if (typeof grid[nextX][nextY] === 'string') {
       console.log("Wild " + grid[nextX][nextY] + " appeared!");
     } else if (grid[nextX][nextY] !== null && grid[nextX][nextY] !== 'string') {
-      console.log(grid[nextX][nextY] + " is here, try find another place!");
+      console.log(grid[nextX][nextY].name + " is here, try find another place!");
     }
   }
 }
@@ -168,7 +168,7 @@ function getCommands(rover, commands){
   //console.log("Orders taken the rover outside the map will not be executed nor written in the travel log :D");
   for(var i = 0; i < commands.length; i++){
     var currentCommand = commands[i];
-    if (rover.myTurn === true) {
+    //if (rover.myTurn === true) {
       switch (currentCommand) {
         case "f":
           moveForward(rover);
@@ -186,19 +186,21 @@ function getCommands(rover, commands){
           console.log("Can't read: '" + commands[i] + "' command, try with: 'f' forwards, 'b' backwards, 'r' right and 'l' left.");
           break;
       }
-      rover.myTurn = false;
-    } else {
-      rover.myTurn = true;
-    }
+    //   rover.myTurn = false;
+    // } else {
+    //   rover.myTurn = true;
+    // }
   }
 }
 
 //TESTING =================================
 
-getCommands(roverling, "rrfflfffrffflfff");
+//getCommands(roverling, "rrfflfffrffflfff");
 //getCommands(roverling, "rfbrfflbfrtffb");
+getCommands(roverling, "rffff");
 
-getCommands(roverlet, "rffrfflfrff");
+getCommands(roverlet, "rfffff");
+//getCommands(roverlet, "rffrfflfrff");
 //getCommands(roverlet, "rbrblbfrffb");
 
 
