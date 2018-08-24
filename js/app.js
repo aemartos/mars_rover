@@ -3,8 +3,8 @@
 
 var roverling = {
   name: "roverling",
-  x: 0,
   y: 0,
+  x: 0,
   direction: "N",
   travelLog: ["(0,0)"],
   myTurn: true
@@ -12,10 +12,10 @@ var roverling = {
 
 var roverlet = {
   name: "roverlet",
+  y: 9,
   x: 9,
-  y: 0,
   direction: "S",
-  travelLog: ["(9,0)"],
+  travelLog: ["(9,9)"],
   myTurn: false
 };
 
@@ -24,16 +24,16 @@ var rovers = [roverling, roverlet];
 // ======================
 
 var grid = [
-  [roverling, null, "unagi", null, null, null, "smelly cat", null, null, roverlet],
+  [roverling, null, "unagi", null, null, null, "smelly cat", null, null, null],
   [null, null, null, null, null, null, null, null, "crap bag", null],
   [null, null, null, "central perk", null, null, null, null, null, null],
   [null, "joey", null, null, null, null, null, null, null, null],
-  [null, null, null, null, null, null, "umbrella", null, null, null],
+  [null, null, null, null, null, null, null, null, null, null],
   [null, null, "coffee", null, null, null, null, null, "meatloaf sandwich", null],
   [null, null, null, null, null, "dinosaur", null, null, null, null],
-  ["OMG!", null, null, null, "ursula", null, null, null, null, null],
+  ["umbrella", null, null, null, "ursula", null, null, null, null, null],
   [null, null, null, null, "gladys", null, "gunther", null, null, null],
-  [null, null, null, null, null, null, null, "dollhouse", null, null]
+  [null, null, null, null, null, null, null, "dollhouse", null, roverlet]
 ];
 //console.log(grid[0][2]);
 
@@ -92,6 +92,19 @@ function cooLog(rover) {
   rover.travelLog.push(coordinate);
 }
 
+// REGISTER ALL===
+// function cooLog(rover) {
+//   var coordinate = "";
+//   if (grid[rover.x][rover.y] === null) {
+//     coordinate = "("+rover.x+","+rover.y+")";
+//   } else if (typeof grid[rover.x][rover.y] === 'string') {
+//     coordinate = " " + grid[rover.x][rover.y];
+//   } else if (grid[rover.x][rover.y] !== null && grid[rover.x][rover.y] !== 'string') {
+//     coordinate = " " + grid[rover.x][rover.y].name;
+//   }
+//   rover.travelLog.push(coordinate);
+// }
+
 
 //CHECK MOV function========================
 
@@ -111,6 +124,7 @@ function checkMov (nextX, nextY, rover) {
     } else if (grid[nextX][nextY] !== null && grid[nextX][nextY] !== 'string') {
       console.log(grid[nextX][nextY].name + " is here, try find another place!");
     }
+    //coo = cooLog(rover);
   }
 }
 
@@ -141,9 +155,9 @@ function calcMove(move, rover){
         }
         break;
       case "W":
-        if (move === "forward" && rover.x > 0) {
+        if (move === "forward") {
           checkMov(rover.x - 1, rover.y, rover);
-        } else if (move === "backward" && rover.x < 9) {
+        } else if (move === "backward") {
           checkMov(rover.x + 1, rover.y, rover);
         }
         break;
@@ -195,11 +209,13 @@ function getCommands(rover, commands){
 
 //TESTING =================================
 
+getCommands(roverlet, "rfffff");
+getCommands(roverling, "rffffrfffffffff");
+
+
 //getCommands(roverling, "rrfflfffrffflfff");
 //getCommands(roverling, "rfbrfflbfrtffb");
-getCommands(roverling, "rffff");
 
-getCommands(roverlet, "rfffff");
 //getCommands(roverlet, "rffrfflfrff");
 //getCommands(roverlet, "rbrblbfrffb");
 
