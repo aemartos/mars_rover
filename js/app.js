@@ -71,7 +71,7 @@ function calcTurn(turn, rover){
       }
       break;
   }
-  //console.log(roverling.direction);
+  //console.log(rover.direction);
 }
 
 function turnLeft(rover){
@@ -162,7 +162,7 @@ function calcMove(move, rover){
         }
         break;
     }
-  //console.log(roverling.x, roverling.y);
+  //console.log(rover.x, rover.y);
 }
 
 function moveForward(rover){
@@ -207,20 +207,6 @@ function getCommands(rover, commands){
   }
 }
 
-//TESTING =================================
-
-getCommands(roverlet, "rfffff");
-getCommands(roverling, "rffffrfffffffff");
-
-
-//getCommands(roverling, "rrfflfffrffflfff");
-//getCommands(roverling, "rfbrfflbfrtffb");
-
-//getCommands(roverlet, "rffrfflfrff");
-//getCommands(roverlet, "rbrblbfrffb");
-
-
-
 //PRINTING MOVEMENTS================
 
 function printMovements(){
@@ -231,4 +217,24 @@ function printMovements(){
   }
 }
 
-printMovements();
+
+//TESTING =================================
+
+//getCommands(roverlet, "rfffff");
+//getCommands(roverling, "rffffrfffffffff");
+
+
+//getCommands(roverling, "rrfflfffrffflfff");
+//getCommands(roverling, "rfbrfflbfrtffb");
+
+//getCommands(roverlet, "rffrfflfrff");
+//getCommands(roverlet, "rbrblbfrffb");
+
+
+function test() {
+  getCommands(roverling, "rfbrfflbfrtffb");
+  getCommands(roverlet, "rffrfflfrff");
+  printMovements();
+}
+
+test();
